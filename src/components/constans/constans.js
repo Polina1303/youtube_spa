@@ -1,0 +1,6 @@
+export const LOGIN='LOGIN'
+export const PASSWORD='PASSWORD'
+export const ADD_VALUE='ADD_VALUE'
+export const CHANGE_FAVOURITES='CHANGE_FAVOURITES'
+export const DELETE_FAVOURITES='DELETE_FAVOURITES'
+

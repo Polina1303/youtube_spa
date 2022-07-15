@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import { Layout } from "antd";
+import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import AppHeader from './AppHeader'
+import SearchPage from "./components/SearchPage";
+import FavouritesPage from './components/FavouritesPage'
+import LoginPage from './components/LoginPage'
+import { Content, Footer } from "antd/lib/layout/layout";
+const { Header } = Layout;
+
+
 
 function App() {
+  const [isToken,setIsToken]=useState(false)
+  const [userInfo,setUserInfo]=useState([])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Layout >
+        {
+        localStorage.getItem('token')?
+        <>
+        <Header >
+          <AppHeader  isToken={isToken} setIsToken={setIsToken} userInfo={userInfo} setUserInfo={setUserInfo} />
+        </Header>
+        <Content style={{background:'#fafafa'}}>
+          <Routes>
+          <Route path="/" element={<SearchPage userInfo={userInfo} setUserInfo={setUserInfo}/>}/>
+          <Route path="/favourite" element={<FavouritesPage userInfo={userInfo} setUserInfo={setUserInfo} />}/>
+        </Routes>
+        </Content>
+        <Footer style={{background:'#fafafa'}} ></Footer>
+        </>
+        :
+        <Content className="content" style={{background:'#fafafa'}}>
+        <Routes>
+          <Route path="/" element={<LoginPage isToken={isToken} setIsToken={setIsToken} />} />
+        </Routes>
+        <Footer style={{background:'#fafafa'}} ></Footer>
+        </Content>
+} 
+      </Layout>
     </div>
   );
 }
