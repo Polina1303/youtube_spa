@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Input } from 'antd';
 import { HeartOutlined, BarsOutlined, AppstoreOutlined } from '@ant-design/icons';
 import axios from 'axios'
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AddFavorites from './AddFavourites'
 
 import { Button, Modal } from 'antd';
@@ -38,7 +38,7 @@ function SearchPage(isToken, setIsToken) {
         setResultsVideos(response.data.items);
     }
 
-  
+
     const classes = []
 
     if (resultsVideos.length) {
@@ -46,35 +46,33 @@ function SearchPage(isToken, setIsToken) {
     } else {
         classes.push('wrapper')
     }
-    
-    const video=[]
-    if (sort=='list'){
+
+    const video = []
+    if (sort == 'list') {
         video.push('list_video')
-    } else{
+    } else {
         video.push('grid_video')
     }
 
-    const columns=[]
-    if(sort=='list'){
+    const columns = []
+    if (sort == 'list') {
         columns.push('list_columns')
-    }else{
+    } else {
         columns.push('grid_columns')
     }
 
-  
+
     return (
         <div>
             <div className={classes.join(' ')}>
-            {visibleFavorites && <AddFavorites
+                {visibleFavorites && <AddFavorites
                     valueRequest={valueRequest}
                     setVisibleFavorites={setVisibleFavorites}
                     visibleFavorites={visibleFavorites}
-                     active={modalActive}
-                     setActive={setModalActive}
+                    active={modalActive}
+                    setActive={setModalActive}
                 />}
                 <h1>Пoиск видео</h1>
-               
-               
                 <Search
                     placeholder="Что хотите посмотреть?"
                     allowClear
@@ -83,13 +81,11 @@ function SearchPage(isToken, setIsToken) {
                     onSearch={onSearch}
                     valueRequest={valueRequest}
                     resultsVideos={resultsVideos}
-                    suffix={ valueRequest ?
-                        <HeartOutlined onClick={() => setVisibleFavorites(!visibleFavorites)}/>
+                    suffix={valueRequest ?
+                        <HeartOutlined onClick={() => setVisibleFavorites(!visibleFavorites)} />
                         : null
                     }
                 />
-                 
-
             </div>
             <div>
                 {
@@ -112,16 +108,15 @@ function SearchPage(isToken, setIsToken) {
                             let link = `https://www.youtube.com/embed/${item.id.videoId}`
                             console.log('item', item);
                             return (
-                                <div>
-                                <div className={video.join(' ')}>
-                                   
-                                    <iframe src={link} > </iframe>
-                                    <div className={columns.join(' ')}  > 
-                                        <h3>{item.snippet.title}</h3>
-                                        <p >{item.snippet.channelTitle} </p>
+                                <div className="grid_columse">
+                                    <div className={video.join(' ')}>
+                                        <iframe src={link} > </iframe>
+                                        <div className={columns.join(' ')}  >
+                                            <h3>{item.snippet.title}</h3>
+                                            <p >{item.snippet.channelTitle} </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div >
+                                </div >
                             )
 
                         })
@@ -129,8 +124,8 @@ function SearchPage(isToken, setIsToken) {
 
                 </div>
             </div>
-            
-    
+
+
         </div>
     )
 

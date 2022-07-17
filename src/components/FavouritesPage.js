@@ -21,30 +21,24 @@ function FavouritesPage({   modalActive, setModalActive }) {
 
     const [favorites, setFavorites] = useState([]);
 
-useEffect(()=>{
-    async function onSearch(value) {
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/search',
+
+       async function onSearchFromFavourites(item) {
+           const response = await axios.get('https://www.googleapis.com/youtube/v3/search',
         {
             params: {
                 part: "snippet",
                 type: "video",
                 maxResults: 12,
                 order: "relevance",
-                q: value,
+                q: item,
                 key: KEY,
             }
         })
-    console.log(response)
-    setValueRequest(value);
-    setResultsVideos(response.data.items);
-    }
-    onSearch(valueRequest)
-},[])
+        console.log( 'reee',response)
+        setValueRequest(item);
+        setResultsVideos(response.data.items);
 
-    function onSearchFromFavourites(value) {
         navigate('/');
-        console.log('value', value)
-       
     }
 
     function onChangeFromFavorite(obj) {
@@ -86,6 +80,8 @@ useEffect(()=>{
                         })
                     : null
             }
+           
+        
         </div>
     )
 }
