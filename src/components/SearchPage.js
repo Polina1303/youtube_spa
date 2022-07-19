@@ -58,16 +58,9 @@ function SearchPage(isToken, setIsToken) {
     video.push("grid_video");
   }
 
-  const columns = [];
-  if (sort === "list") {
-    columns.push("list_columns");
-  } else {
-    columns.push("grid_columns");
-  }
-
   return (
     <div>
-      <div>
+      <div className={classes.join(" ")}>
         <h1>Пoиск видео</h1>
         <Search
           placeholder="Что хотите посмотреть?"
@@ -86,7 +79,7 @@ function SearchPage(isToken, setIsToken) {
           }
         />
       </div>
-      <div className={classes.join(" ")}>
+      <div>
         {visibleFavorites && (
           <AddFavorites
             valueRequest={valueRequest}
@@ -128,7 +121,7 @@ function SearchPage(isToken, setIsToken) {
                 <div>
                   <div>
                     <iframe src={link}> </iframe>
-                    <div className={columns.join(" ")}>
+                    <div>
                       <h3>{item.snippet.title}</h3>
                       <p>{item.snippet.channelTitle} </p>
                     </div>

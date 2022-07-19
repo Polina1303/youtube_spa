@@ -49,7 +49,7 @@ function App() {
           <Content className="content" style={{ background: "#fafafa" }}>
             <Routes>
               <Route
-                path="/youtube_spa/"
+                path="/"
                 element={
                   <LoginPage isToken={isToken} setIsToken={setIsToken} />
                 }

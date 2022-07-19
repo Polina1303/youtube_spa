@@ -48,7 +48,7 @@ function FavouritesPage({ modalActive, setModalActive }) {
   }
 
   return (
-    <div>
+    <div className="favourites">
       {visibleFavorites && (
         <AddFavorites
           valueRequest={valueRequest}

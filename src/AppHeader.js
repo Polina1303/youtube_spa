@@ -9,7 +9,7 @@ function AppHeader({ isToken, setIsToken }) {
   async function logOut() {
     await localStorage.clear();
     await setIsToken(!isToken);
-    navigate("/youtube_spa/");
+    navigate("/");
   }
   return (
     <div className="container-fluid">
