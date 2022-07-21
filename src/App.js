@@ -27,13 +27,13 @@ function App() {
             <Content style={{ background: "#fafafa" }}>
               <Routes>
                 <Route
-                  path="/youtube_spa/"
+                  path="/"
                   element={
                     <SearchPage userInfo={userInfo} setUserInfo={setUserInfo} />
                   }
                 />
                 <Route
-                  path="/youtube_spa/favourite"
+                  path="/favourite"
                   element={
                     <FavouritesPage
                       userInfo={userInfo}

@@ -38,7 +38,7 @@ function FavouritesPage({ modalActive, setModalActive }) {
     setValueRequest(item);
     setResultsVideos(response.data.items);
 
-    navigate("/youtube_spa/");
+    navigate("/");
   }
 
   function onChangeFromFavorite(obj) {

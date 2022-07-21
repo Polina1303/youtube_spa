@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "antd";
 import {
   HeartOutlined,
@@ -8,40 +8,46 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AddFavorites from "./AddFavourites";
+import { search } from "../redux/action";
 
 import { Button, Modal } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosPosts } from "../redux/action";
+import { SEARCH } from "./constans/constans";
 
 const { Search } = Input;
 
 function SearchPage(isToken, setIsToken) {
   const [valueRequest, setValueRequest] = useState("");
-  const [resultsVideos, setResultsVideos] = useState([]);
+  // const [resultsVideos, setResultsVideos] = useState([]);
   const [visibleFavorites, setVisibleFavorites] = useState(false);
-  const KEY = "AIzaSyDGe046-b4QJAWJfVRH9493fuijBM85Pjs";
 
-  const [result, setResult] = useState(null);
   const [modalActive, setModalActive] = useState(true);
   const [sort, setSort] = useState("grid");
   const isDisabled = true;
 
-  async function onSearch(value) {
-    const response = await axios.get(
-      "https://www.googleapis.com/youtube/v3/search",
-      {
-        params: {
-          part: "snippet",
-          type: "video",
-          maxResults: 12,
-          order: "relevance",
-          q: value,
-          key: KEY,
-        },
-      }
-    );
-    console.log(response);
-    setValueRequest(value);
-    setResultsVideos(response.data.items);
-  }
+  const dispatch = useDispatch();
+
+  const posts = useSelector((state) => state.posts.posts);
+  // const valueRequest = useSelector(
+  //   (state) => state.posts.posts.config.params.q
+  // );
+  // setValueRequest(posts.posts.config.params.q);
+  const resultsVideos = useSelector((state) => state.posts.posts.data.items);
+  console.log("posts", posts);
+  console.log("posts.data.item", posts.data.item);
+  console.log("valueRequest", valueRequest);
+  console.log("resultsVideos", resultsVideos);
+
+  useEffect(() => {
+    dispatch(axiosPosts());
+  }, [dispatch]);
+
+  // const renderPosts = () => {
+  //   // if (loading) return <p>Loading posts...</p>;
+  //   // if (hasErrors) return <p>Unable to display posts.</p>;
+  //   return posts;
+  // };
 
   const classes = [];
 
@@ -57,6 +63,12 @@ function SearchPage(isToken, setIsToken) {
   } else {
     video.push("grid_video");
   }
+  const value = useSelector((state) => state.posts);
+
+  function handlerChange(e) {
+    dispatch(search(SEARCH, e.target.value));
+    console.log("value search", value.value);
+  }
 
   return (
     <div>
@@ -67,8 +79,10 @@ function SearchPage(isToken, setIsToken) {
           allowClear
           enterButton="Найти"
           size="large"
-          onSearch={onSearch}
-          valueRequest={valueRequest}
+          onChange={handlerChange}
+          // value={value.value}
+          // onSearch={renderPosts}
+          valueRequest={value.value}
           resultsVideos={resultsVideos}
           suffix={
             valueRequest ? (

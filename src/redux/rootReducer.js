@@ -1,11 +1,12 @@
-import { combineReducers } from 'redux'
-
-import authReducer from './authReducer'
-import { favoriteReducer } from './favoriteReducer'
+import { combineReducers } from "redux";
+import postsReducer from "./postsReducer";
+import authReducer from "./authReducer";
+import { favoriteReducer } from "./favoriteReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  favorite:favoriteReducer
-})
+  favorite: favoriteReducer,
+  posts: postsReducer,
+});
 
-export default rootReducer
+export default rootReducer;
