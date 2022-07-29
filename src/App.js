@@ -27,13 +27,13 @@ function App() {
             <Content style={{ background: "#fafafa" }}>
               <Routes>
                 <Route
-                  path="/"
+                  path="/youtube_spa"
                   element={
                     <SearchPage userInfo={userInfo} setUserInfo={setUserInfo} />
                   }
                 />
                 <Route
-                  path="/favourite"
+                  path="/youtube_spa/favourite"
                   element={
                     <FavouritesPage
                       userInfo={userInfo}
@@ -49,7 +49,7 @@ function App() {
           <Content className="content" style={{ background: "#fafafa" }}>
             <Routes>
               <Route
-                path="/"
+                path="/youtube_spa"
                 element={
                   <LoginPage isToken={isToken} setIsToken={setIsToken} />
                 }

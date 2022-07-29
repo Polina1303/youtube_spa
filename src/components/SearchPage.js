@@ -45,7 +45,6 @@ function SearchPage() {
 
   function handlerChange(e) {
     dispatch(search(SEARCH, e.target.value));
-    console.log("value search", value.value);
   }
 
   return (

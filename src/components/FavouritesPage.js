@@ -18,7 +18,7 @@ function FavouritesPage({ modalActive, setModalActive }) {
 
   function onSearchFromFavourites(value) {
     dispatch(axiosPosts(value));
-    navigate("/");
+    navigate("/youtube_spa");
   }
 
   function onChangeFromFavorite(obj) {

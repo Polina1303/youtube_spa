@@ -17,10 +17,10 @@ function AppHeader({ isToken, setIsToken }) {
         <YoutubeOutlined style={{ color: "#1390E5", fontSize: "60px" }} />
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["Поиск"]}>
           <Menu.Item>
-            <Link to="/">Поиск</Link>
+            <Link to="/youtube_spa">Поиск</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to="/favourite">Избранное</Link>
+            <Link to="/youtube_spa/favourite">Избранное</Link>
           </Menu.Item>
           <Menu.Item>
             <div onClick={logOut}>Выйти</div>
