@@ -103,9 +103,6 @@ export function axiosPosts(value) {
       );
       const data = await response;
       dispatch(getPostsSuccess(data));
-      console.log(data);
-      console.log("value", value);
-      console.log("q", data.params.q);
     } catch (error) {
       dispatch(getPostsFailure());
     }

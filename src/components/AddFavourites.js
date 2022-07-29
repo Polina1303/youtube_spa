@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
-import { Input, Form, Select, Col, InputNumber, Row, Slider, Button } from 'antd';
-import {favoritesAction} from '../redux/action'
-import {useDispatch,useSelector} from 'react-redux'
+import React, { useState } from "react";
+import {
+  Input,
+  Form,
+  Select,
+  Col,
+  InputNumber,
+  Row,
+  Slider,
+  Button,
+} from "antd";
+import { favoritesAction } from "../redux/action";
+import { useDispatch, useSelector } from "react-redux";
 
-
-function AddFavorites({setVisibleFavorites,isDisabled,valueRequest }) {
-  let dispatch=useDispatch()
+function AddFavorites({ setVisibleFavorites, isDisabled, valueRequest }) {
+  let dispatch = useDispatch();
 
   function onFinish(dataForm) {
-    let id=new Date()
-    let user=localStorage.getItem('login')
-    const data={user,id,...dataForm}
-    dispatch(favoritesAction(data))
-    setVisibleFavorites(false)
-    console.log('dispatch',data)
+    let id = new Date();
+    let user = localStorage.getItem("login");
+    const data = { user, id, ...dataForm };
+    dispatch(favoritesAction(data));
+    setVisibleFavorites(false);
+    console.log("dispatch", data);
   }
 
-  const array = useSelector(state => state.favorite);
-  console.log('array',array)
-
+  const array = useSelector((state) => state.favorite);
+  console.log("array", array);
 
   const IntegerStep = () => {
     const [inputValue, setInputValue] = useState(1);
@@ -34,7 +41,7 @@ function AddFavorites({setVisibleFavorites,isDisabled,valueRequest }) {
             min={1}
             max={50}
             onChange={onChange}
-            value={typeof inputValue === 'number' ? inputValue : 0}
+            value={typeof inputValue === "number" ? inputValue : 0}
           />
         </Col>
         <Col span={4}>
@@ -42,7 +49,7 @@ function AddFavorites({setVisibleFavorites,isDisabled,valueRequest }) {
             min={1}
             max={50}
             style={{
-              margin: '0 16px',
+              margin: "0 16px",
             }}
             value={inputValue}
             onChange={onChange}
@@ -52,17 +59,17 @@ function AddFavorites({setVisibleFavorites,isDisabled,valueRequest }) {
     );
   };
 
- const onReset=()=>{
-    setVisibleFavorites(false)
-  }
+  const onReset = () => {
+    setVisibleFavorites(false);
+  };
 
   return (
-    <div className='modal'>
-      <div className='modal_content'>
+    <div className="modal">
+      <div className="modal_content">
         <h3>Сохраненный запрос</h3>
         <Form onFinish={onFinish}>
-          <Form.Item label='Запрос' initialValue={valueRequest} name='request'>
-            <Input id='request' disabled={isDisabled} ></Input>
+          <Form.Item label="Запрос" initialValue={valueRequest} name="request">
+            <Input id="request" disabled={isDisabled}></Input>
           </Form.Item>
 
           <Form.Item
@@ -71,15 +78,15 @@ function AddFavorites({setVisibleFavorites,isDisabled,valueRequest }) {
             rules={[
               {
                 required: true,
-                message: 'Укажите название!',
+                message: "Укажите название!",
               },
             ]}
           >
-            <Input placeholder='Укажите название' />
+            <Input placeholder="Укажите название" />
           </Form.Item>
 
           <Form.Item label="Сортировать по">
-            <Select placeholder='Без сортировки'>
+            <Select placeholder="Без сортировки">
               <Select.Option value="data">Дате</Select.Option>
               <Select.Option value="views">Количество просмотров</Select.Option>
             </Select>
@@ -89,7 +96,7 @@ function AddFavorites({setVisibleFavorites,isDisabled,valueRequest }) {
             htmlType="button"
             onClick={onReset}
             size={"large"}
-            style={{ width: "200px", marginRight: "15px" , marginTop:'15px' }}
+            style={{ width: "200px", marginRight: "15px", marginTop: "15px" }}
           >
             Не сохранять
           </Button>
@@ -104,11 +111,7 @@ function AddFavorites({setVisibleFavorites,isDisabled,valueRequest }) {
         </Form>
       </div>
     </div>
-  )
+  );
 }
 
-export default AddFavorites
-
-
-
-
+export default AddFavorites;

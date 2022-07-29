@@ -1,52 +1,46 @@
-import { Form, Input,Button } from 'antd';
-import { LockOutlined, UserOutlined, YoutubeOutlined } from '@ant-design/icons';
-import React from 'react';
-import 'antd/dist/antd.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { login, password } from '../redux/action'
-import { LOGIN, PASSWORD } from './constans/constans'
-import axios from 'axios'
-
+import { Form, Input, Button } from "antd";
+import { LockOutlined, UserOutlined, YoutubeOutlined } from "@ant-design/icons";
+import React from "react";
+import "antd/dist/antd.css";
+import { useDispatch, useSelector } from "react-redux";
+import { login, password } from "../redux/action";
+import { LOGIN, PASSWORD } from "./constans/constans";
+import axios from "axios";
 
 function LoginPage({ isToken, setIsToken }) {
-  const state = useSelector(state => state.auth)
-  const dispatch = useDispatch()
+  const state = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const onFinish = async (state) => {
-     
-      console.log('consolstate',state,'login',state.username,'password',state.password)
     try {
-      const response = await axios.post('https://typ-back-end.herokuapp.com/api/login', {'login':state.username,'password': state.password}) 
-          console.log(response)
-           if (response.data.isAuth) {
-        localStorage.setItem('login',state.username)
-        localStorage.setItem('token',response.data.token)
+      const response = await axios.post(
+        "https://typ-back-end.herokuapp.com/api/login",
+        { login: state.username, password: state.password }
+      );
+      if (response.data.isAuth) {
+        localStorage.setItem("login", state.username);
+        localStorage.setItem("token", response.data.token);
         setIsToken(!isToken);
-      } else  {
-        console.log('Такой пользователь не существует. Попробуйте еще раз')
-       
+      } else {
+        console.log("Такой пользователь не существует. Попробуйте еще раз");
       }
+    } catch (e) {
+      console.log(e);
     }
-    catch (e) {
-      console.log(e)
-         }
-  }
+  };
 
   function handlerLogin(e) {
-    dispatch(login(LOGIN, e.target.value))
-    console.log(state.login)
+    dispatch(login(LOGIN, e.target.value));
   }
 
   function handlerPassworde(e) {
-    dispatch(password(PASSWORD, e.target.value))
-    console.log(state.password)
+    dispatch(password(PASSWORD, e.target.value));
   }
 
-
   return (
-    <div className='auth'>
-      <div className='youtube-icon'>
-        <YoutubeOutlined style={{ color: '#1390E5', fontSize: '60px' }} />
+    <div className="auth">
+      <div className="youtube-icon">
+        <YoutubeOutlined style={{ color: "#1390E5", fontSize: "60px" }} />
         <h3>Вход</h3>
       </div>
       <Form
@@ -62,19 +56,22 @@ function LoginPage({ isToken, setIsToken }) {
           rules={[
             {
               required: true,
-              message: 'Please input your Username!',
+              message: "Please input your Username!",
             },
           ]}
           onChange={handlerLogin}
         >
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
+          />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[
             {
               required: true,
-              message: 'Please input your Password!',
+              message: "Please input your Password!",
             },
           ]}
           onChange={handlerPassworde}
@@ -86,31 +83,17 @@ function LoginPage({ isToken, setIsToken }) {
           />
         </Form.Item>
         <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Войти
-        </Button>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+          >
+            Войти
+          </Button>
         </Form.Item>
       </Form>
     </div>
   );
-};
-
+}
 
 export default LoginPage;
-
-
-
-
-// function onFinish(e) {
-//   e.preventDefault()
-//   console.log('login', state.login, state.password)
-//   try {
-//     const response = await axios.post('https://typ-back-end.herokuapp.com/api/login', { 'login': state.login, 'password':state.password })
-//     const token = response.data.token
-//     localStorage.setItem('login', state.login)
-//     localStorage.setItem('password', state.password)
-//     console.log(token)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
