@@ -17,8 +17,8 @@ import { SEARCH } from "./constans/constans";
 
 const { Search } = Input;
 
-function SearchPage(isToken, setIsToken) {
-  const [valueRequest, setValueRequest] = useState("");
+function SearchPage() {
+  // const [valueRequest, setValueRequest] = useState("");
   // const [resultsVideos, setResultsVideos] = useState([]);
   const [visibleFavorites, setVisibleFavorites] = useState(false);
 
@@ -28,30 +28,29 @@ function SearchPage(isToken, setIsToken) {
 
   const dispatch = useDispatch();
 
-  const posts = useSelector((state) => state.posts.posts);
-  // const valueRequest = useSelector(
-  //   (state) => state.posts.posts.config.params.q
-  // );
-  // setValueRequest(posts.posts.config.params.q);
-  const resultsVideos = useSelector((state) => state.posts.posts.data.items);
+  // const posts = useSelector((state) => state.posts.posts);
+  // const params = useSelector((state) => state.posts.posts.config.params);
+  // console.log(params);
+  // const { params } = state.posts.posts.config.params;
+
+  let { posts } = useSelector((state) => state.posts);
   console.log("posts", posts);
-  console.log("posts.data.item", posts.data.item);
+  let valueRequest =
+    posts && posts.config && posts.config.params && posts.config.params.q;
   console.log("valueRequest", valueRequest);
+
+  let resultsVideos = posts && posts.data && posts.data.items;
+  // posts.data.items.id &&
+  // posts.data.item.id.videoId;
   console.log("resultsVideos", resultsVideos);
 
-  useEffect(() => {
-    dispatch(axiosPosts());
-  }, [dispatch]);
-
-  // const renderPosts = () => {
-  //   // if (loading) return <p>Loading posts...</p>;
-  //   // if (hasErrors) return <p>Unable to display posts.</p>;
-  //   return posts;
-  // };
+  const renderPosts = (value) => {
+    return dispatch(axiosPosts(value));
+  };
 
   const classes = [];
 
-  if (resultsVideos.length) {
+  if (resultsVideos) {
     classes.push("wrapper_top");
   } else {
     classes.push("wrapper");
@@ -79,11 +78,11 @@ function SearchPage(isToken, setIsToken) {
           allowClear
           enterButton="Найти"
           size="large"
+          onSearch={renderPosts}
           onChange={handlerChange}
-          // value={value.value}
-          // onSearch={renderPosts}
-          valueRequest={value.value}
-          resultsVideos={resultsVideos}
+          value={value.value}
+          // valueRequest={value.value}
+          // resultsVideos={resultsVideos}
           suffix={
             valueRequest ? (
               <HeartOutlined
@@ -93,6 +92,7 @@ function SearchPage(isToken, setIsToken) {
           }
         />
       </div>
+
       <div>
         {visibleFavorites && (
           <AddFavorites
